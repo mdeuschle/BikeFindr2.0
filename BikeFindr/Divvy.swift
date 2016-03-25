@@ -21,7 +21,7 @@ class Divvy {
 
     func initWithData(data: [String:AnyObject], currentLocation: CLLocation) {
 
-        stationName     = data["stationName"] as! String
+        stationName     = data["stAddress1"] as! String
         availableBikes  = Int(data["availableBikes"] as! Int)
         lat             = Double(data["latitude"] as! Double)
         lon             = Double(data["longitude"] as! Double)
