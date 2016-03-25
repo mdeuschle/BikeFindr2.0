@@ -26,8 +26,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         requestLocation()
         downloadBikeStations()
         addBikeStationsToMap()
+        setUpMapViewStart()
 
         self.title = "Divvy Bikes"
+    }
+
+    func setUpMapViewStart() {
+        let chicagoCord = CLLocationCoordinate2D(latitude: 41.886257, longitude: -87.629875)
+        mapView.setRegion(MKCoordinateRegionMake(chicagoCord, MKCoordinateSpanMake(0.01, 0.01)), animated: false)
     }
 
     func requestLocation() {
@@ -68,19 +74,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         dropPins()
     }
 
-    func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000, 1000)
-
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
-
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-
-        if let loc = userLocation.location {
-
-            centerMapOnLocation(loc)
-        }
-    }
+//    func centerMapOnLocation(location: CLLocation) {
+//        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000, 1000)
+//
+//        mapView.setRegion(coordinateRegion, animated: true)
+//    }
+//
+//    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+//
+//        if let loc = userLocation.location {
+//
+//            centerMapOnLocation(loc)
+//        }
+//    }
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
@@ -90,7 +96,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
 
                 locationManager.stopUpdatingLocation()
-                centerMapOnLocation(currentLocation)
+//                centerMapOnLocation(currentLocation)
             }
         }
     }
@@ -128,7 +134,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let mapPin = MKAnnotationView()
         mapPin.canShowCallout = true
         mapPin.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-//        mapPin.image = UIImage(named: "bikePin")
+        mapPin.image = UIImage(named: "bikePin")
         return mapPin
     }
 
@@ -141,5 +147,4 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         var bikeStation : Divvy!
     }
-
 }
