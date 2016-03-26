@@ -16,6 +16,7 @@
 		A81EA75E1CA5DC6D002949CE /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81EA75D1CA5DC6D002949CE /* DetailViewController.swift */; };
 		A81EA7601CA5E20B002949CE /* Divvy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81EA75F1CA5E20B002949CE /* Divvy.swift */; };
 		A81EA7621CA5E788002949CE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81EA7611CA5E788002949CE /* MapKit.framework */; };
+		A81EA7661CA60188002949CE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81EA7651CA60188002949CE /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		A81EA75D1CA5DC6D002949CE /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A81EA75F1CA5E20B002949CE /* Divvy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divvy.swift; sourceTree = "<group>"; };
 		A81EA7611CA5E788002949CE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		A81EA7651CA60188002949CE /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = ../TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				A81EA75F1CA5E20B002949CE /* Divvy.swift */,
 				A81EA75D1CA5DC6D002949CE /* DetailViewController.swift */,
 				A81EA75B1CA5DC37002949CE /* ListViewController.swift */,
+				A81EA7651CA60188002949CE /* TableViewCell.swift */,
 				A81EA7591CA5DC23002949CE /* MapViewController.swift */,
 				A81EA74B1CA5DA31002949CE /* Main.storyboard */,
 				A81EA74E1CA5DA31002949CE /* Assets.xcassets */,
@@ -157,6 +160,7 @@
 				A81EA7461CA5DA31002949CE /* AppDelegate.swift in Sources */,
 				A81EA75A1CA5DC23002949CE /* MapViewController.swift in Sources */,
 				A81EA75C1CA5DC37002949CE /* ListViewController.swift in Sources */,
+				A81EA7661CA60188002949CE /* TableViewCell.swift in Sources */,
 				A81EA7601CA5E20B002949CE /* Divvy.swift in Sources */,
 				A81EA75E1CA5DC6D002949CE /* DetailViewController.swift in Sources */,
 			);

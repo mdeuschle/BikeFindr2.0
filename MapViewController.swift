@@ -67,8 +67,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             let newBikeStation = Divvy()
             newBikeStation.initWithData(bikestation, currentLocation: self.currentLocation)
             bikes.append(newBikeStation)
-
-            print(newBikeStation.stationName)
         }
         bikes.sortInPlace({ $0.0.distance < $0.1.distance })
         dropPins()
