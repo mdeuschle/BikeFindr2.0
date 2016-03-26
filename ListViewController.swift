@@ -12,7 +12,6 @@ import CoreLocation
 
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
 
-
     @IBOutlet var tableView: UITableView!
 
     var mapViewController: MapViewController!
@@ -27,7 +26,13 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        requestLocation()
+    }
+
+    func requestLocation() {
+
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
     }
 
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -35,11 +40,18 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let currentLoc = locations.first {
 
             currentLocation = currentLoc
+            tableView.reloadData()
+
             if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
 
                 locationManager.stopUpdatingLocation()
             }
         }
+    }
+
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+
+        print(error)
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,6 +67,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.bikeAvailable.text = "\(String(bike.availableBikes)) bikes available"
 
         let distance = self.currentLocation.distanceFromLocation(CLLocation(latitude: bike.lat, longitude: bike.lon))
+
+        print(self.currentLocation)
+        print(CLLocation(latitude: bike.lat, longitude: bike.lon))
 
         let miles = distance * 0.000621371
         let bikeMiles = Double(round(10 * miles)/10)
