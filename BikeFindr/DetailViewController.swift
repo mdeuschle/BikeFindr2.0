@@ -41,6 +41,13 @@ class DetailViewController: UIViewController {
 
     @IBAction func onDirectionsPressed(sender: UIButton) {
 
+        bikeStationDirections(selectedBikeStation.lat, lon: selectedBikeStation.lon)
+
+    }
+
+    func bikeStationDirections(lat: Double, lon: Double) {
+
+        UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/maps?daddr=\(String(lat)),\(String(lon))")!)
     }
 
 }

@@ -13,7 +13,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     @IBOutlet var tableView: UITableView!
 
-//    var bikes = [Divvy]()
+    // remove search bar border
+//    groupMessageSearchBar.backgroundImage = UIImage()
 
     var mapViewController: MapViewController!
     let locationManager = CLLocationManager()

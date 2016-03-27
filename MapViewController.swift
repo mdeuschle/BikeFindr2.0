@@ -25,7 +25,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         requestLocation()
         downloadBikeStations()
-        addBikeStationsToMap()
+//        addBikeStationsToMap()
         setUpMapViewStart()
 
         self.title = "Divvy Bikes"
@@ -112,17 +112,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
 
-    func addBikeStationsToMap() {
-
-        mapView.showsUserLocation = true
-
-        for bikeStation in self.bikes {
-
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = bikeStation.coordinate2D
-            mapView.addAnnotation(annotation)
-        }
-    }
+//    func addBikeStationsToMap() {
+//
+//        mapView.showsUserLocation = true
+//
+//        for bikeStation in self.bikes {
+//
+//            let annotation = MKPointAnnotation()
+//            annotation.coordinate = bikeStation.coordinate2D
+//            mapView.addAnnotation(annotation)
+//        }
+//    }
 
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 
@@ -139,6 +139,20 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
 
         print(error)
+    }
+
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+
+        performSegueWithIdentifier("DetailSeg", sender: nil)
+
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        let detailView = segue.destinationViewController as! DetailViewController
+        let selectedPoint = mapView.selectedAnnotations.first as! BikePointAnnotation
+        detailView.selectedBikeStation = selectedPoint.bikeStation
     }
 
     class BikePointAnnotation : MKPointAnnotation {
