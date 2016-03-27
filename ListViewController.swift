@@ -9,10 +9,11 @@
 import UIKit
 import CoreLocation
 
-
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var tableView: UITableView!
+
+//    var bikes = [Divvy]()
 
     var mapViewController: MapViewController!
     let locationManager = CLLocationManager()
@@ -21,12 +22,22 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        requestLocation()
+
+        self.title = "BIKE FINDR"
+
         mapViewController = (self.tabBarController?.viewControllers?.first as! UINavigationController).viewControllers.first as! MapViewController
     }
 
+//    override func viewWillAppear(animated: Bool) {
+////
+////        super.viewWillAppear(animated)
+////        tableView.reloadData()
+////    }
+
     override func viewDidAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        requestLocation()
+
+        tableView.reloadData()
     }
 
     func requestLocation() {
@@ -63,13 +74,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! TableViewCell
         let bike: Divvy = mapViewController.bikes[indexPath.row]
-        cell.bikeStationName.text = bike.stationName
+        cell.bikeStationName.text = bike.stationName.uppercaseString
         cell.bikeAvailable.text = "\(String(bike.availableBikes)) bikes available"
 
         let distance = self.currentLocation.distanceFromLocation(CLLocation(latitude: bike.lat, longitude: bike.lon))
-
-        print(self.currentLocation)
-        print(CLLocation(latitude: bike.lat, longitude: bike.lon))
 
         let miles = distance * 0.000621371
         let bikeMiles = Double(round(10 * miles)/10)
@@ -78,4 +86,22 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         return cell
     }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+        let detailView = segue.destinationViewController as! DetailViewController
+
+        let bike = mapViewController.bikes[(tableView.indexPathForSelectedRow!.row)]
+        detailView.selectedBikeStation = bike
+        detailView.currentLocation = self.currentLocation
+    }
 }
+
+
+
+
+
+
+
+
+
