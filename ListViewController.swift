@@ -12,11 +12,10 @@ import CoreLocation
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
 
-    // remove search bar border
-//    groupMessageSearchBar.backgroundImage = UIImage()
+    var bikes = [Divvy]()
 
-    var mapViewController: MapViewController!
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
 
@@ -24,17 +23,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
 
         requestLocation()
-
-        self.title = "BIKE FINDR"
-
-        mapViewController = (self.tabBarController?.viewControllers?.first as! UINavigationController).viewControllers.first as! MapViewController
+        downloadBikeStations()
+        searchBar.backgroundImage = UIImage()
     }
 
-//    override func viewWillAppear(animated: Bool) {
-////
-////        super.viewWillAppear(animated)
-////        tableView.reloadData()
-////    }
 
     override func viewDidAppear(animated: Bool) {
 
@@ -47,16 +39,46 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         locationManager.startUpdatingLocation()
     }
 
+    func downloadBikeStations() {
+
+        let url = NSURL(string: "http://www.divvybikes.com/stations/json")!
+        let session = NSURLSession.sharedSession()
+
+        session.dataTaskWithURL(url) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+            do {
+                if let bikeStationData = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as? [String:AnyObject] {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.configureData(bikeStationData)
+                    })
+                }
+            } catch {}
+            }.resume()
+    }
+
+    func configureData(data: [String:AnyObject]) {
+
+        let results = data["stationBeanList"] as! [[String:AnyObject]]
+
+        for bikestation in results {
+            let newBikeStation = Divvy()
+            newBikeStation.initWithData(bikestation, currentLocation: self.currentLocation)
+            bikes.append(newBikeStation)
+            self.tableView.reloadData()
+        }
+
+        bikes.sortInPlace({ $0.0.distance < $0.1.distance })
+    }
+
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
         if let currentLoc = locations.first {
 
             currentLocation = currentLoc
-            tableView.reloadData()
 
             if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
 
                 locationManager.stopUpdatingLocation()
+                tableView.reloadData()
             }
         }
     }
@@ -68,21 +90,19 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return mapViewController.bikes.count
+        return bikes.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! TableViewCell
-        let bike: Divvy = mapViewController.bikes[indexPath.row]
+        let bike = bikes[indexPath.row]
         cell.bikeStationName.text = bike.stationName.uppercaseString
         cell.bikeAvailable.text = "\(String(bike.availableBikes)) bikes available"
 
         let distance = self.currentLocation.distanceFromLocation(CLLocation(latitude: bike.lat, longitude: bike.lon))
-
         let miles = distance * 0.000621371
         let bikeMiles = Double(round(10 * miles)/10)
-
         cell.milesLabel.text = "\(bikeMiles) mi"
 
         return cell
@@ -92,7 +112,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
         let detailView = segue.destinationViewController as! DetailViewController
 
-        let bike = mapViewController.bikes[(tableView.indexPathForSelectedRow!.row)]
+        let bike = bikes[(tableView.indexPathForSelectedRow!.row)]
         detailView.selectedBikeStation = bike
         detailView.currentLocation = self.currentLocation
     }

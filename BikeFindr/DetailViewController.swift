@@ -11,38 +11,29 @@ import CoreLocation
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet var detailImageView: UIImageView!
-    @IBOutlet var stationName: UILabel!
     @IBOutlet var status: UILabel!
     @IBOutlet var availableBikes: UILabel!
     @IBOutlet var distanceLabel: UILabel!
-    @IBOutlet var latitude: UILabel!
-    @IBOutlet var longitude: UILabel!
-
+    
     var selectedBikeStation = Divvy()
     var currentLocation = CLLocation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = selectedBikeStation.stationName
-        stationName.text = selectedBikeStation.stationName
+        self.title = selectedBikeStation.stationName.uppercaseString
         status.text = selectedBikeStation.status
-        availableBikes.text = "\(selectedBikeStation.availableBikes) bikes available"
+        availableBikes.text = "\(selectedBikeStation.availableBikes) Bikes Available"
 
         let distance = self.currentLocation.distanceFromLocation(CLLocation(latitude: selectedBikeStation.lat, longitude: selectedBikeStation.lon))
         let miles = distance * 0.000621371
         let bikeMiles = Double(round(10 * miles)/10)
-        distanceLabel.text = "\(bikeMiles) mi"
-
-        latitude.text = String(selectedBikeStation.lat)
-        longitude.text = String(selectedBikeStation.lon)
+        distanceLabel.text = "\(bikeMiles) Miles"
     }
 
     @IBAction func onDirectionsPressed(sender: UIButton) {
 
         bikeStationDirections(selectedBikeStation.lat, lon: selectedBikeStation.lon)
-
     }
 
     func bikeStationDirections(lat: Double, lon: Double) {
