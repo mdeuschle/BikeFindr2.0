@@ -218,7 +218,7 @@
                                     <outlet property="delegate" destination="8rJ-Kc-sve" id="j5u-bg-vlZ"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="Search" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBv-VY-DyG">
+                            <searchBar contentMode="redraw" placeholder="Search for Divvy Stations" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aBv-VY-DyG">
                                 <rect key="frame" x="-4" y="64" width="383" height="44"/>
                                 <color key="backgroundColor" red="0.36078431372549019" green="0.73333333333333328" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
