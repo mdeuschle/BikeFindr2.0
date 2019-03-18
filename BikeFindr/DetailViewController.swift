@@ -21,11 +21,11 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = selectedBikeStation.stationName.uppercaseString
+        self.title = selectedBikeStation.stationName.uppercased()
         status.text = selectedBikeStation.status
         availableBikes.text = "\(selectedBikeStation.availableBikes) Bikes Available"
 
-        let distance = self.currentLocation.distanceFromLocation(CLLocation(latitude: selectedBikeStation.lat, longitude: selectedBikeStation.lon))
+        let distance = self.currentLocation.distance(from: CLLocation(latitude: selectedBikeStation.lat, longitude: selectedBikeStation.lon))
         let miles = distance * 0.000621371
         let bikeMiles = Double(round(10 * miles)/10)
         distanceLabel.text = "\(bikeMiles) Miles"
@@ -33,12 +33,12 @@ class DetailViewController: UIViewController {
 
     @IBAction func onDirectionsPressed(sender: UIButton) {
 
-        bikeStationDirections(selectedBikeStation.lat, lon: selectedBikeStation.lon)
+        bikeStationDirections(lat: selectedBikeStation.lat, lon: selectedBikeStation.lon)
     }
 
     func bikeStationDirections(lat: Double, lon: Double) {
-
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://maps.apple.com/maps?daddr=\(String(lat)),\(String(lon))")!)
+        let urlString = "http://maps.apple.com/maps?daddr=\(String(lat)),\(String(lon))"
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
-
 }

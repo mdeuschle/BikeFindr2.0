@@ -42,19 +42,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     func downloadBikeStations() {
-
-        let url = NSURL(string: "http://www.divvybikes.com/stations/json")!
-        let session = NSURLSession.sharedSession()
-
-        session.dataTaskWithURL(url) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-            do {
-                if let bikeStationData = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as? [String:AnyObject] {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.configureData(bikeStationData)
-                    })
+        
+        guard let url = URL(string: "http://www.divvybikes.com/stations/json") else { return }
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let bikeStationData = try? JSONSerialization.jsonObject(with: data!,
+                                                                       options: .allowFragments) as? [String: Any] {
+                DispatchQueue.main.async {
+                    self.configureData(data: bikeStationData! as [String : AnyObject])
                 }
-            } catch {}
-            }.resume()
+            }
+        }
+        task.resume()
     }
 
     func configureData(data: [String:AnyObject]) {
@@ -63,29 +61,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         for bikestation in results {
             let newBikeStation = Divvy()
-            newBikeStation.initWithData(bikestation, currentLocation: self.currentLocation)
+            newBikeStation.initWithData(data: bikestation, currentLocation: self.currentLocation)
             bikes.append(newBikeStation)
         }
-
-        bikes.sortInPlace({ $0.0.distance < $0.1.distance })
+        bikes.sort(by: { $0.distance < $1.distance })
         dropPins()
     }
 
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000)
 
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
 
         if let loc = userLocation.location {
 
-            centerMapOnLocation(loc)
+            centerMapOnLocation(location: loc)
         }
     }
 
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
         if let currentLoc = locations.first {
 
@@ -93,7 +90,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
 
                 locationManager.stopUpdatingLocation()
-                centerMapOnLocation(currentLocation)
+                centerMapOnLocation(location: currentLocation)
             }
         }
     }
@@ -111,33 +108,33 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
 
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
 
         if annotation.isEqual(mapView.userLocation) {
             return nil }
 
         let mapPin = MKAnnotationView()
         mapPin.canShowCallout = true
-        mapPin.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+        mapPin.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         mapPin.image = UIImage(named: "bikePin")
         return mapPin
     }
 
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
 
         print(error)
     }
 
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
 
-        performSegueWithIdentifier("DetailSeg", sender: nil)
+        performSegue(withIdentifier: "DetailSeg", sender: nil)
 
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-        let detailView = segue.destinationViewController as! DetailViewController
+        let detailView = segue.destination as! DetailViewController
         let selectedPoint = mapView.selectedAnnotations.first as! BikePointAnnotation
         detailView.selectedBikeStation = selectedPoint.bikeStation
         detailView.currentLocation = self.currentLocation

@@ -27,72 +27,60 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         requestLocation()
         downloadBikeStations()
         searchBar.delegate = self
-        searchBar.returnKeyType = UIReturnKeyType.Done
+        searchBar.returnKeyType = UIReturnKeyType.done
     }
 
 
-    override func viewDidAppear(animated: Bool) {
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         tableView.reloadData()
         view.endEditing(true)
-
     }
 
     func requestLocation() {
-
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
     }
 
     func downloadBikeStations() {
-
-        let url = NSURL(string: "http://www.divvybikes.com/stations/json")!
-        let session = NSURLSession.sharedSession()
-
-        session.dataTaskWithURL(url) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
-            do {
-                if let bikeStationData = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as? [String:AnyObject] {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.configureData(bikeStationData)
-                    })
+        
+        guard let url = URL(string: "http://www.divvybikes.com/stations/json") else { return }
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let bikeStationData = try? JSONSerialization.jsonObject(with: data!,
+                                                                       options: .allowFragments) as? [String: Any] {
+                DispatchQueue.main.async {
+                    self.configureData(data: bikeStationData! as [String : AnyObject])
                 }
-            } catch {}
-            }.resume()
+            }
+        }
+        task.resume()
     }
 
     func configureData(data: [String:AnyObject]) {
-
         let results = data["stationBeanList"] as! [[String:AnyObject]]
-
         for bikestation in results {
             let newBikeStation = Divvy()
-            newBikeStation.initWithData(bikestation, currentLocation: self.currentLocation)
+            newBikeStation.initWithData(data: bikestation, currentLocation: self.currentLocation)
             bikes.append(newBikeStation)
             self.tableView.reloadData()
         }
-
-        bikes.sortInPlace({ $0.0.distance < $0.1.distance })
+        bikes.sort(by: { $0.distance < $1.distance })
     }
 
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLoc = locations.first {
-
             currentLocation = currentLoc
-
             if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
-
                 locationManager.stopUpdatingLocation()
             }
         }
     }
 
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if inSearchMode {
 
@@ -101,9 +89,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             return bikes.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! TableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! TableViewCell
 
         let bike: Divvy!
 
@@ -116,10 +104,10 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
             bike = bikes[indexPath.row]
         }
 
-        cell.bikeStationName.text = bike.stationName.uppercaseString
+        cell.bikeStationName.text = bike.stationName.uppercased()
         cell.bikeAvailable.text = "\(String(bike.availableBikes)) bikes available"
 
-        let distance = self.currentLocation.distanceFromLocation(CLLocation(latitude: bike.lat, longitude: bike.lon))
+        let distance = self.currentLocation.distance(from: CLLocation(latitude: bike.lat, longitude: bike.lon))
         let miles = distance * 0.000621371
         let bikeMiles = Double(round(10 * miles)/10)
         cell.milesLabel.text = "\(bikeMiles) mi"
@@ -127,9 +115,9 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return cell
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
-        let detailView = segue.destinationViewController as! DetailViewController
+        let detailView = segue.destination as! DetailViewController
         detailView.currentLocation = self.currentLocation
 
         let bike: Divvy!
@@ -145,12 +133,12 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
 
         view.endEditing(true)
     }
 
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
         if searchBar.text == nil || searchBar.text == "" {
 
@@ -161,7 +149,8 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
             inSearchMode = true
             let searchText = searchBar.text!
-            filteredBikes = bikes.filter({$0.stationName.rangeOfString(searchText) != nil})
+            filteredBikes = bikes.filter({ $0.stationName == searchText })
+//            filteredBikes = bikes.filter({$0.stationName.rangeOfString(searchText) != nil})
             tableView.reloadData()
         }
     }

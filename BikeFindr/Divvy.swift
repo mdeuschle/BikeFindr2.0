@@ -26,7 +26,7 @@ class Divvy {
         lat             = Double(data["latitude"] as! Double)
         lon             = Double(data["longitude"] as! Double)
         status          = data["statusValue"] as! String
-        distance        = currentLocation.distanceFromLocation(CLLocation(latitude: lat, longitude: lon))
+        distance        = currentLocation.distance(from: CLLocation(latitude: lat, longitude: lon))
         coordinate2D    = CLLocationCoordinate2DMake(lat, lon)
     }
 }
