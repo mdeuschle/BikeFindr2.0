@@ -12,7 +12,7 @@ import CoreLocation
 struct WebService {
     static let shared = WebService()
     private init() {}
-    static func dataTask(for currentLocation: CLLocation?,
+    func dataTask(for currentLocation: CLLocation?,
                          completion: @escaping (Response<Data>) -> Void) {
         let urlString = "http://www.divvybikes.com/stations/json"
         guard let url = URL(string: urlString) else { return }
