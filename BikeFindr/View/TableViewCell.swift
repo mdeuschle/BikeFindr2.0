@@ -14,9 +14,4 @@ class TableViewCell: UITableViewCell {
     @IBOutlet var bikeStationName: UILabel!
     @IBOutlet var bikeAvailable: UILabel!
     @IBOutlet var milesLabel: UILabel!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-    }
 }

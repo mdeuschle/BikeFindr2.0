@@ -17,6 +17,8 @@
 		A81EA7621CA5E788002949CE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81EA7611CA5E788002949CE /* MapKit.framework */; };
 		A81EA7661CA60188002949CE /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81EA7651CA60188002949CE /* TableViewCell.swift */; };
 		A8796D42223F4977005B251C /* Divvy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81EA75F1CA5E20B002949CE /* Divvy.swift */; };
+		A8796D44223F5794005B251C /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D43223F5794005B251C /* Response.swift */; };
+		A8796D46223F5959005B251C /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D45223F5959005B251C /* WebService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		A81EA75F1CA5E20B002949CE /* Divvy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Divvy.swift; sourceTree = "<group>"; };
 		A81EA7611CA5E788002949CE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		A81EA7651CA60188002949CE /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		A8796D43223F5794005B251C /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		A8796D45223F5959005B251C /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				A81EA75F1CA5E20B002949CE /* Divvy.swift */,
+				A8796D43223F5794005B251C /* Response.swift */,
+				A8796D45223F5959005B251C /* WebService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,10 +197,12 @@
 			files = (
 				A81EA7461CA5DA31002949CE /* AppDelegate.swift in Sources */,
 				A81EA75A1CA5DC23002949CE /* MapViewController.swift in Sources */,
+				A8796D46223F5959005B251C /* WebService.swift in Sources */,
 				A81EA75C1CA5DC37002949CE /* ListViewController.swift in Sources */,
 				A81EA7661CA60188002949CE /* TableViewCell.swift in Sources */,
 				A8796D42223F4977005B251C /* Divvy.swift in Sources */,
 				A81EA75E1CA5DC6D002949CE /* DetailViewController.swift in Sources */,
+				A8796D44223F5794005B251C /* Response.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
