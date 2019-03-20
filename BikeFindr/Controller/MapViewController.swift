@@ -73,12 +73,11 @@ class MapViewController: UIViewController {
         }
     }
     
-//    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        guard let detailView = segue.destination as? DetailViewController,
-//            let selectedPoint = mapView.selectedAnnotations.first as? BikePointAnnotation else { return }
-//        detailView.selectedBikeStation = selectedPoint.bikeStation
-//        detailView.currentLocation = self.currentLocation
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let detailView = segue.destination as? DetailViewController,
+            let selectedPoint = mapView.selectedAnnotations.first as? BikePointAnnotation else { return }
+        detailView.divvy = selectedPoint.bikeStation
+    }
     
     class BikePointAnnotation: MKPointAnnotation {
         var bikeStation: Divvy?
@@ -112,6 +111,6 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
-        performSegue(withIdentifier: "DetailSeg", sender: nil)
+        performSegue(withIdentifier: "FromMap", sender: nil)
     }
 }

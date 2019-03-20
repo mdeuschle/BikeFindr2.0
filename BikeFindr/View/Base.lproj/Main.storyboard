@@ -41,7 +41,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="2s1-kF-Ctq" id="XxD-cv-NW3"/>
-                        <segue destination="5L7-OO-ppD" kind="show" identifier="DetailSeg" id="e7d-Cl-JQ0"/>
+                        <segue destination="5L7-OO-ppD" kind="show" identifier="FromMap" id="e7d-Cl-JQ0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -156,16 +156,16 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kdo-TH-3yt">
-                                                    <rect key="frame" x="101" y="23" width="166" height="64"/>
+                                                    <rect key="frame" x="101" y="23" width="414" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bike Station Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RqW-DV-eVM">
-                                                            <rect key="frame" x="0.0" y="0.0" width="166" height="36.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="36.5"/>
                                                             <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="21"/>
                                                             <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2t7-cP-QxU">
-                                                            <rect key="frame" x="0.0" y="40.5" width="166" height="23.5"/>
+                                                            <rect key="frame" x="0.0" y="40.5" width="414" height="23.5"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Bike Available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5e-zn-iog">
                                                                     <rect key="frame" x="0.0" y="0.0" width="83" height="23.5"/>
@@ -174,7 +174,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.00 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2b-8p-aYg">
-                                                                    <rect key="frame" x="91" y="0.0" width="75" height="23.5"/>
+                                                                    <rect key="frame" x="91" y="0.0" width="323" height="23.5"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
                                                                     <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>

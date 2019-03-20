@@ -15,12 +15,11 @@ class DetailViewController: UIViewController {
     @IBOutlet var availableBikes: UILabel!
     @IBOutlet var distanceLabel: UILabel!
     
-//    var selectedBikeStation = Divvy()
+    var divvy: Divvy?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        self.title = selectedBikeStation.stationName.uppercased()
+        self.title = divvy?.stationBeanList.stationName
 //        status.text = selectedBikeStation.status
 //        availableBikes.text = "\(selectedBikeStation.availableBikes) Bikes Available"
 //
@@ -29,7 +28,7 @@ class DetailViewController: UIViewController {
 //        let bikeMiles = Double(round(10 * miles)/10)
 //        distanceLabel.text = "\(bikeMiles) Miles"
     }
-
+    
 //    @IBAction func onDirectionsPressed(sender: UIButton) {
 //
 //        bikeStationDirections(lat: selectedBikeStation.lat, lon: selectedBikeStation.lon)
