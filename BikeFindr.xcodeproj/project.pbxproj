@@ -82,8 +82,8 @@
 		A8796D3E223F31AD005B251C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A81EA75B1CA5DC37002949CE /* ListViewController.swift */,
 				A81EA7591CA5DC23002949CE /* MapViewController.swift */,
+				A81EA75B1CA5DC37002949CE /* ListViewController.swift */,
 				A81EA75D1CA5DC6D002949CE /* DetailViewController.swift */,
 			);
 			path = Controller;

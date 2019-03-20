@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController {
     
     @IBOutlet var mapView: MKMapView!
     
@@ -31,7 +31,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         locationManager.startUpdatingLocation()
     }
     
-    func downloadBikeStations() {
+    private func downloadBikeStations() {
         WebService.shared.dataTask(for: currentLocation) { [weak self] response in
             DispatchQueue.main.async {
                 switch response {
@@ -52,23 +52,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             }
         }
     }
-
+    
     private func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: 2000,
                                                   longitudinalMeters: 2000)
         mapView.setRegion(coordinateRegion, animated: true)
-    }
-
-    func locationManager(_ manager: CLLocationManager,
-                         didUpdateLocations locations: [CLLocation]) {
-        if let currentLoc = locations.first {
-            currentLocation = currentLoc
-            if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
-                centerMapOnLocation(location: currentLoc)
-                locationManager.stopUpdatingLocation()
-            }
-        }
     }
     
     func dropPins() {
@@ -84,6 +73,32 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
+//    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        guard let detailView = segue.destination as? DetailViewController,
+//            let selectedPoint = mapView.selectedAnnotations.first as? BikePointAnnotation else { return }
+//        detailView.selectedBikeStation = selectedPoint.bikeStation
+//        detailView.currentLocation = self.currentLocation
+//    }
+    
+    class BikePointAnnotation: MKPointAnnotation {
+        var bikeStation: Divvy?
+    }
+}
+
+extension MapViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager,
+                         didUpdateLocations locations: [CLLocation]) {
+        if let currentLoc = locations.first {
+            currentLocation = currentLoc
+            if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
+                centerMapOnLocation(location: currentLoc)
+                locationManager.stopUpdatingLocation()
+            }
+        }
+    }
+}
+
+extension MapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView,
                  viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation.isEqual(mapView.userLocation) {
@@ -94,20 +109,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapPin.image = UIImage(named: "bikePin")
         return mapPin
     }
-
+    
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
         performSegue(withIdentifier: "DetailSeg", sender: nil)
-    }
-    
-    //    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    //        let detailView = segue.destination as! DetailViewController
-    //        let selectedPoint = mapView.selectedAnnotations.first as! BikePointAnnotation
-    //        detailView.selectedBikeStation = selectedPoint.bikeStation
-    //        detailView.currentLocation = self.currentLocation
-    //    }
-    
-    class BikePointAnnotation: MKPointAnnotation {
-        var bikeStation: Divvy?
     }
 }

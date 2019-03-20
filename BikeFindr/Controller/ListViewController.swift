@@ -7,18 +7,16 @@
 //
 
 import UIKit
-import CoreLocation
+//import CoreLocation
 
-class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
+class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,  UISearchBarDelegate {
 
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var searchBar: UISearchBar!
+//    @IBOutlet var searchBar: UISearchBar!
 
-    var bikes = [Divvy]()
-    var filteredBikes = [Divvy]()
+    private var bikes = [Divvy]()
+    private var filteredBikes = [Divvy]()
 
-    let locationManager = CLLocationManager()
-    var currentLocation = CLLocation()
     var inSearchMode = false
 
     override func viewDidLoad() {
@@ -31,16 +29,13 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadData()
-        view.endEditing(true)
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        tableView.reloadData()
+//        view.endEditing(true)
+//    }
 
-    func requestLocation() {
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
-    }
+
 
 //    func downloadBikeStations() {
 //        
@@ -67,18 +62,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //        bikes.sort(by: { $0.distance < $1.distance })
 //    }
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let currentLoc = locations.first {
-            currentLocation = currentLoc
-            if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
-                locationManager.stopUpdatingLocation()
-            }
-        }
-    }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 

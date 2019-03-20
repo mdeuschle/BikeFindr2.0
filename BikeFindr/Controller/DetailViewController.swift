@@ -16,7 +16,6 @@ class DetailViewController: UIViewController {
     @IBOutlet var distanceLabel: UILabel!
     
 //    var selectedBikeStation = Divvy()
-    var currentLocation = CLLocation()
 
     override func viewDidLoad() {
         super.viewDidLoad()
