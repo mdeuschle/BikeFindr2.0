@@ -20,13 +20,28 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = divvy?.stationBeanList.stationName
-//        status.text = selectedBikeStation.status
-//        availableBikes.text = "\(selectedBikeStation.availableBikes) Bikes Available"
+        configureLabels()
+
 //
 //        let distance = self.currentLocation.distance(from: CLLocation(latitude: selectedBikeStation.lat, longitude: selectedBikeStation.lon))
 //        let miles = distance * 0.000621371
 //        let bikeMiles = Double(round(10 * miles)/10)
 //        distanceLabel.text = "\(bikeMiles) Miles"
+    }
+    
+    private func configureLabels() {
+        guard let station = divvy?.stationBeanList else { return }
+        status.text = station.statusValue
+        if let bikesAvailable = station.availableDocks {
+            availableBikes.text = bikesAvailable.bikeString()
+        } else {
+            availableBikes.isHidden = true
+        }
+        
+        
+        
+        
+        
     }
     
 //    @IBAction func onDirectionsPressed(sender: UIButton) {

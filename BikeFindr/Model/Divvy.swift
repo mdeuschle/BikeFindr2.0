@@ -18,7 +18,7 @@ struct StationBeanList: Decodable {
     let availableDocks: Int?
     let latitude: Double?
     let longitude: Double?
-    let status: String?
+    let statusValue: String?
 }
 
 struct Divvy {

@@ -66,7 +66,9 @@ class MapViewController: UIViewController {
             newPin.coordinate = bike.coordinate2D
             newPin.title = bike.stationBeanList.stationName
             if let availableBikes = bike.stationBeanList.availableDocks {
-                newPin.subtitle = "Bikes Available: \(String(describing: availableBikes))"
+                let bikes: String
+                bikes = availableBikes >= 1 ? "Bikes" : "Bike"
+                newPin.subtitle = "\(bikes) Available: \(String(describing: availableBikes))"
             }
             newPin.bikeStation = bike
             mapView.addAnnotation(newPin)

@@ -19,6 +19,8 @@
 		A8796D42223F4977005B251C /* Divvy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81EA75F1CA5E20B002949CE /* Divvy.swift */; };
 		A8796D44223F5794005B251C /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D43223F5794005B251C /* Response.swift */; };
 		A8796D46223F5959005B251C /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D45223F5959005B251C /* WebService.swift */; };
+		A8796D4C22433022005B251C /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D4B22433022005B251C /* IntExtension.swift */; };
+		A8796D4E22434681005B251C /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D4D22434681005B251C /* DoubleExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		A81EA7651CA60188002949CE /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		A8796D43223F5794005B251C /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		A8796D45223F5959005B251C /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		A8796D4B22433022005B251C /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		A8796D4D22434681005B251C /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 				A81EA75F1CA5E20B002949CE /* Divvy.swift */,
 				A8796D43223F5794005B251C /* Response.swift */,
 				A8796D45223F5959005B251C /* WebService.swift */,
+				A8796D4B22433022005B251C /* IntExtension.swift */,
+				A8796D4D22434681005B251C /* DoubleExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,11 +201,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8796D4E22434681005B251C /* DoubleExtension.swift in Sources */,
 				A81EA7461CA5DA31002949CE /* AppDelegate.swift in Sources */,
 				A81EA75A1CA5DC23002949CE /* MapViewController.swift in Sources */,
 				A8796D46223F5959005B251C /* WebService.swift in Sources */,
 				A81EA75C1CA5DC37002949CE /* ListViewController.swift in Sources */,
 				A81EA7661CA60188002949CE /* TableViewCell.swift in Sources */,
+				A8796D4C22433022005B251C /* IntExtension.swift in Sources */,
 				A8796D42223F4977005B251C /* Divvy.swift in Sources */,
 				A81EA75E1CA5DC6D002949CE /* DetailViewController.swift in Sources */,
 				A8796D44223F5794005B251C /* Response.swift in Sources */,
