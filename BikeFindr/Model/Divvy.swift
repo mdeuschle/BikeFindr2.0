@@ -19,11 +19,12 @@ struct StationBeanList: Decodable {
     let latitude: Double?
     let longitude: Double?
     let statusValue: String?
+    let stAddress1: String?
 }
 
 struct Divvy {
     let stationBeanList: StationBeanList
-    let distance: Double
+    var distance: Double
     var coordinate2D: CLLocationCoordinate2D
     init?(stationBeanList: StationBeanList?, currentLocation: CLLocation?) {
         guard let stationBeanList = stationBeanList,

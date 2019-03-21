@@ -14,44 +14,34 @@ class DetailViewController: UIViewController {
     @IBOutlet var status: UILabel!
     @IBOutlet var availableBikes: UILabel!
     @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var addressLabel: UILabel!
     
     var divvy: Divvy?
+    var station: StationBeanList?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = divvy?.stationBeanList.stationName
+        station = divvy?.stationBeanList
         configureLabels()
-
-//
-//        let distance = self.currentLocation.distance(from: CLLocation(latitude: selectedBikeStation.lat, longitude: selectedBikeStation.lon))
-//        let miles = distance * 0.000621371
-//        let bikeMiles = Double(round(10 * miles)/10)
-//        distanceLabel.text = "\(bikeMiles) Miles"
     }
     
     private func configureLabels() {
-        guard let station = divvy?.stationBeanList else { return }
-        status.text = station.statusValue
-        if let bikesAvailable = station.availableDocks {
+        status.text = station?.statusValue
+        if let bikesAvailable = station?.availableDocks {
             availableBikes.text = bikesAvailable.bikeString()
         } else {
             availableBikes.isHidden = true
         }
-        
-        
-        
-        
-        
+        distanceLabel.text = divvy?.distance.milesString()
+        addressLabel.text = divvy?.stationBeanList.stAddress1
     }
     
-//    @IBAction func onDirectionsPressed(sender: UIButton) {
-//
-//        bikeStationDirections(lat: selectedBikeStation.lat, lon: selectedBikeStation.lon)
-//    }
-//
-//    func bikeStationDirections(lat: Double, lon: Double) {
-//        let urlString = "http://maps.apple.com/maps?daddr=\(String(lat)),\(String(lon))"
-//        guard let url = URL(string: urlString) else { return }
-//        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//    }
+    @IBAction func onDirectionsTapped(sender: UIButton) {
+        guard let lat = station?.latitude,
+            let lon = station?.longitude else { return }
+        let urlString = "http://maps.apple.com/maps?daddr=\(String(lat)),\(String(lon))"
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
 }

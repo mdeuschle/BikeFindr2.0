@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -60,35 +61,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="IUf-h1-RGi">
-                                <rect key="frame" x="24" y="88" width="272" height="315"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IUf-h1-RGi">
+                                <rect key="frame" x="24" y="88" width="272" height="293"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bike" translatesAutoresizingMaskIntoConstraints="NO" id="Qpc-O8-t1b">
-                                        <rect key="frame" x="0.0" y="0.0" width="272" height="181"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="bike" translatesAutoresizingMaskIntoConstraints="NO" id="Qpc-O8-t1b">
+                                        <rect key="frame" x="0.0" y="0.0" width="272" height="175.5"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33g-iV-fV9">
-                                        <rect key="frame" x="120" y="223.5" width="32.5" height="31.5"/>
+                                        <rect key="frame" x="120" y="183.5" width="32.5" height="31.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="bEi-b4-0nH">
-                                        <rect key="frame" x="70.5" y="297" width="131" height="18"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y8C-jw-d2A">
-                                                <rect key="frame" x="0.0" y="0.0" width="44" height="18"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWh-Yr-ya6">
-                                                <rect key="frame" x="71" y="0.0" width="60" height="18"/>
-                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D30-Dm-Bbv">
+                                        <rect key="frame" x="108" y="223" width="56.5" height="18"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y8C-jw-d2A">
+                                        <rect key="frame" x="114" y="249" width="44" height="18"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWh-Yr-ya6">
+                                        <rect key="frame" x="106" y="275" width="60" height="18"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xmm-5D-lYp">
@@ -100,13 +102,13 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="onDirectionsPressed:" destination="5L7-OO-ppD" eventType="touchUpInside" id="zeg-Rq-l4B"/>
+                                    <action selector="onDirectionsTappedWithSender:" destination="5L7-OO-ppD" eventType="touchUpInside" id="YZS-XC-PBB"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.3803921569" green="0.76862745099999996" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="xmm-5D-lYp" firstAttribute="top" secondItem="IUf-h1-RGi" secondAttribute="bottom" constant="42" id="9up-sE-Xa0"/>
+                            <constraint firstItem="xmm-5D-lYp" firstAttribute="top" secondItem="IUf-h1-RGi" secondAttribute="bottom" constant="64" id="9up-sE-Xa0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xmm-5D-lYp" secondAttribute="trailing" constant="44" id="JOq-Nv-oiz"/>
                             <constraint firstItem="yHZ-t5-Rz7" firstAttribute="top" secondItem="xmm-5D-lYp" secondAttribute="bottom" constant="24" id="PYz-8y-3rU"/>
                             <constraint firstItem="xmm-5D-lYp" firstAttribute="leading" secondItem="og4-rJ-zHi" secondAttribute="leadingMargin" constant="44" id="ZPr-oc-2LF"/>
@@ -116,6 +118,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addressLabel" destination="D30-Dm-Bbv" id="TsU-LL-N1N"/>
                         <outlet property="availableBikes" destination="33g-iV-fV9" id="hZo-Jr-Xdp"/>
                         <outlet property="distanceLabel" destination="kWh-Yr-ya6" id="Iov-Jg-xwv"/>
                         <outlet property="status" destination="y8C-jw-d2A" id="qbt-Ds-rOk"/>
