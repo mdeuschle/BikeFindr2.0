@@ -62,19 +62,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IUf-h1-RGi">
-                                <rect key="frame" x="24" y="88" width="272" height="293"/>
+                                <rect key="frame" x="24" y="135" width="272" height="246"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="bike" translatesAutoresizingMaskIntoConstraints="NO" id="Qpc-O8-t1b">
-                                        <rect key="frame" x="0.0" y="0.0" width="272" height="175.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="272" height="128.5"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33g-iV-fV9">
-                                        <rect key="frame" x="120" y="183.5" width="32.5" height="31.5"/>
+                                        <rect key="frame" x="120" y="136.5" width="32.5" height="31.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iMt-A2-lHb">
-                                        <rect key="frame" x="106" y="223" width="60" height="70"/>
+                                        <rect key="frame" x="106" y="176" width="60" height="70"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D30-Dm-Bbv">
                                                 <rect key="frame" x="0.0" y="0.0" width="60" height="18"/>
@@ -157,53 +157,46 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tablePic" translatesAutoresizingMaskIntoConstraints="NO" id="gL0-Wt-i1P">
-                                                    <rect key="frame" x="31" y="30" width="50" height="50"/>
+                                                    <rect key="frame" x="15" y="30" width="50" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="ifC-ma-59a"/>
-                                                        <constraint firstAttribute="height" constant="50" id="qtS-13-rSX"/>
+                                                        <constraint firstAttribute="width" constant="50" id="8SU-pN-r7i"/>
+                                                        <constraint firstAttribute="height" constant="50" id="mXV-ki-nSL"/>
                                                     </constraints>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Kdo-TH-3yt">
-                                                    <rect key="frame" x="101" y="23" width="414" height="64"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="g9P-Za-ROT">
+                                                    <rect key="frame" x="77" y="23" width="194" height="64"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bike Station Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RqW-DV-eVM">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="36.5"/>
-                                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="21"/>
-                                                            <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Bike Station Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RqW-DV-eVM">
+                                                            <rect key="frame" x="0.0" y="0.0" width="146" height="20.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2t7-cP-QxU">
-                                                            <rect key="frame" x="0.0" y="40.5" width="414" height="23.5"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Bike Available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5e-zn-iog">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="83" height="23.5"/>
-                                                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
-                                                                    <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.00 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2b-8p-aYg">
-                                                                    <rect key="frame" x="91" y="0.0" width="323" height="23.5"/>
-                                                                    <fontDescription key="fontDescription" name="AvenirNextCondensed-Regular" family="Avenir Next Condensed" pointSize="17"/>
-                                                                    <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Bike Available" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5e-zn-iog">
+                                                            <rect key="frame" x="0.0" y="24.5" width="93.5" height="17.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.00 mi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2b-8p-aYg">
+                                                            <rect key="frame" x="0.0" y="46" width="60.5" height="18"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                            <color key="textColor" red="0.49803921579999999" green="0.49803921579999999" blue="0.49803921579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="gL0-Wt-i1P" firstAttribute="centerY" secondItem="xV1-14-NJe" secondAttribute="centerY" id="7G4-jT-fxh"/>
-                                                <constraint firstItem="gL0-Wt-i1P" firstAttribute="leading" secondItem="xV1-14-NJe" secondAttribute="leadingMargin" constant="16" id="IRT-TS-TWZ"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Kdo-TH-3yt" secondAttribute="trailing" constant="12" id="ImY-l6-hVX"/>
-                                                <constraint firstItem="Kdo-TH-3yt" firstAttribute="top" secondItem="xV1-14-NJe" secondAttribute="topMargin" constant="12" id="Prh-b3-ic1"/>
-                                                <constraint firstItem="Kdo-TH-3yt" firstAttribute="leading" secondItem="gL0-Wt-i1P" secondAttribute="trailing" constant="20" id="gQ4-Hk-cx2"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Kdo-TH-3yt" secondAttribute="bottom" constant="12" id="yMh-2V-RWN"/>
+                                                <constraint firstItem="g9P-Za-ROT" firstAttribute="leading" secondItem="gL0-Wt-i1P" secondAttribute="trailing" constant="12" id="40d-dk-gRc"/>
+                                                <constraint firstItem="g9P-Za-ROT" firstAttribute="top" secondItem="xV1-14-NJe" secondAttribute="topMargin" constant="12" id="HCl-Bw-om6"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="g9P-Za-ROT" secondAttribute="trailing" constant="8" id="HRY-BH-vGH"/>
+                                                <constraint firstItem="gL0-Wt-i1P" firstAttribute="centerY" secondItem="xV1-14-NJe" secondAttribute="centerY" id="lB6-b2-hoz"/>
+                                                <constraint firstItem="gL0-Wt-i1P" firstAttribute="leading" secondItem="xV1-14-NJe" secondAttribute="leadingMargin" id="sWA-iH-RvZ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="g9P-Za-ROT" secondAttribute="bottom" constant="12" id="zoN-G4-fEH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="bikeAvailable" destination="j5e-zn-iog" id="GJ6-fw-gDZ"/>
-                                            <outlet property="bikeImage" destination="gL0-Wt-i1P" id="vhB-H0-uuU"/>
                                             <outlet property="bikeStationName" destination="RqW-DV-eVM" id="KQf-Gy-4G4"/>
                                             <outlet property="milesLabel" destination="w2b-8p-aYg" id="mvk-vE-G9G"/>
                                             <segue destination="5L7-OO-ppD" kind="show" identifier="DetailSegue" id="eGC-TP-g97"/>
@@ -316,6 +309,6 @@
         <image name="tablePic" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="e7d-Cl-JQ0"/>
+        <segue reference="eGC-TP-g97"/>
     </inferredMetricsTieBreakers>
 </document>

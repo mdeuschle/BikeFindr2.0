@@ -7,15 +7,21 @@
 //
 
 import UIKit
-//import CoreLocation
+import CoreLocation
 
-class ListViewController: UIViewController, UITableViewDelegate,  UISearchBarDelegate {
+class ListViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet var tableView: UITableView!
+    let locationManager = CLLocationManager()
 //    @IBOutlet var searchBar: UISearchBar!
 
-    private var bikes = [Divvy]()
+    private var bikes = [Divvy]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     private var filteredBikes = [Divvy]()
+    private var currentLocation = CLLocation()
 
     var inSearchMode = false
     
@@ -23,11 +29,45 @@ class ListViewController: UIViewController, UITableViewDelegate,  UISearchBarDel
         super.viewDidLoad()
 //
 //        requestLocation()
-//        downloadBikeStations()
+        downloadBikeStations()
+        setupTableView()
+        setupLocation()
 //        searchBar.delegate = self
 //        searchBar.returnKeyType = UIReturnKeyType.done
     }
-
+    
+    private func setupTableView() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 80
+    }
+    
+    private func setupLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    private func downloadBikeStations() {
+        WebService.shared.dataTask { [weak self] response in
+            DispatchQueue.main.async {
+                switch response {
+                case let .success(data):
+                    if let json = try? JSONDecoder().decode(JSON.self, from: data) {
+                        json.stationBeanList.forEach { stationBeanList in
+                            if let divvy = Divvy(stationBeanList: stationBeanList,
+                                                 currentLocation: self?.currentLocation) {
+                                self?.bikes.append(divvy)
+                            }
+                        }
+                    }
+                case let .error(error):
+                    print(error!)
+                }
+                self?.bikes.sort(by: { $0.distance < $1.distance })
+            }
+        }
+    }
 
 //    override func viewDidAppear(_ animated: Bool) {
 //        super.viewDidAppear(animated)
@@ -36,20 +76,6 @@ class ListViewController: UIViewController, UITableViewDelegate,  UISearchBarDel
 //    }
 
 
-
-//    func downloadBikeStations() {
-//        
-//        guard let url = URL(string: "http://www.divvybikes.com/stations/json") else { return }
-//        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-//            if let bikeStationData = try? JSONSerialization.jsonObject(with: data!,
-//                                                                       options: .allowFragments) as? [String: Any] {
-//                DispatchQueue.main.async {
-//                    self.configureData(data: bikeStationData! as [String : AnyObject])
-//                }
-//            }
-//        }
-//        task.resume()
-//    }
 //
 //    func configureData(data: [String:AnyObject]) {
 //        let results = data["stationBeanList"] as! [[String:AnyObject]]
@@ -63,12 +89,14 @@ class ListViewController: UIViewController, UITableViewDelegate,  UISearchBarDel
 //    }
 
 
-
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! TableViewCell
-//
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TableViewCell else {
+            return TableViewCell()
+        }
+        var bike = bikes[indexPath.row]
+        cell.configure(with: &bike)
+        
+        
 //        let bike: Divvy!
 //
 //        if inSearchMode {
@@ -142,6 +170,17 @@ extension ListViewController: UITableViewDataSource {
     }
 }
 
+extension ListViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager,
+                         didUpdateLocations locations: [CLLocation]) {
+        if let currentLoc = locations.first {
+            currentLocation = currentLoc
+            if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
+                locationManager.stopUpdatingLocation()
+            }
+        }
+    }
+}
 
 
 
