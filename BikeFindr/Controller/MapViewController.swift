@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
     }
     
     private func downloadBikeStations() {
-        WebService.shared.dataTask(for: currentLocation) { [weak self] response in
+        WebService.shared.dataTask { [weak self] response in
             DispatchQueue.main.async {
                 switch response {
                 case let .success(data):

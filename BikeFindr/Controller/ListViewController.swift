@@ -9,7 +9,7 @@
 import UIKit
 //import CoreLocation
 
-class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,  UISearchBarDelegate {
+class ListViewController: UIViewController, UITableViewDelegate,  UISearchBarDelegate {
 
     @IBOutlet var tableView: UITableView!
 //    @IBOutlet var searchBar: UISearchBar!
@@ -18,7 +18,7 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var filteredBikes = [Divvy]()
 
     var inSearchMode = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //
@@ -64,14 +64,6 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        if inSearchMode {
-
-            return filteredBikes.count
-        }
-            return bikes.count
-    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -137,6 +129,17 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //            tableView.reloadData()
 //        }
 //    }
+}
+
+extension ListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if inSearchMode {
+            
+            return filteredBikes.count
+        }
+        return bikes.count
+    }
 }
 
 
