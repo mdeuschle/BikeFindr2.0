@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 class ListViewController: UIViewController, UISearchBarDelegate {
-
+    
     @IBOutlet var tableView: UITableView!
     let locationManager = CLLocationManager()
     private var currentLocation = CLLocation()
@@ -25,13 +25,20 @@ class ListViewController: UIViewController, UISearchBarDelegate {
             tableView.reloadData()
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         downloadBikeStations()
+        configureSearchBar()
         setupTableView()
         setupLocation()
-//        searchBar.delegate = self
+    }
+    
+    private func configureSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.delegate = self
+        navigationItem.searchController = searchController
     }
     
     private func setupTableView() {
@@ -71,7 +78,7 @@ class ListViewController: UIViewController, UISearchBarDelegate {
             }
         }
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let detailView = segue.destination as? DetailViewController,
             let indexPath = tableView.indexPathForSelectedRow else { return }
@@ -103,7 +110,6 @@ extension ListViewController: UITableViewDelegate {
     }
 }
 
-
 extension ListViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
@@ -112,6 +118,20 @@ extension ListViewController: CLLocationManagerDelegate {
             if currentLoc.verticalAccuracy < 1000 && currentLoc.horizontalAccuracy < 1000 {
                 locationManager.stopUpdatingLocation()
             }
+        }
+    }
+}
+
+extension ListViewController: UISearchResultsUpdating, UISearchControllerDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let text = searchController.searchBar.text, !text.isEmpty {
+            inSearchMode = true
+            filteredBikes = bikes.filter {
+                $0.stationBeanList.stationName!.lowercased().contains(text.lowercased())
+            }
+        } else {
+            inSearchMode = false
+            tableView.reloadData()
         }
     }
 }
