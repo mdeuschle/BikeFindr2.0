@@ -45,8 +45,8 @@ class MapViewController: UIViewController {
                         }
                     }
                 case let .error(error):
-                    print(error!)
-                }
+                    guard let viewController = self else { return }
+                    AlertController(viewController: viewController).showAlert(with: error)           }
                 self?.bikes.sort(by: { $0.distance < $1.distance })
                 self?.dropPins()
             }

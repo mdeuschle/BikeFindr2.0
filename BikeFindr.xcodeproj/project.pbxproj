@@ -21,6 +21,7 @@
 		A8796D46223F5959005B251C /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D45223F5959005B251C /* WebService.swift */; };
 		A8796D4C22433022005B251C /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D4B22433022005B251C /* IntExtension.swift */; };
 		A8796D4E22434681005B251C /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D4D22434681005B251C /* DoubleExtension.swift */; };
+		A8796D5022467FCD005B251C /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8796D4F22467FCC005B251C /* AlertController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		A8796D45223F5959005B251C /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		A8796D4B22433022005B251C /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		A8796D4D22434681005B251C /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
+		A8796D4F22467FCC005B251C /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				A81EA7591CA5DC23002949CE /* MapViewController.swift */,
 				A81EA75B1CA5DC37002949CE /* ListViewController.swift */,
 				A81EA75D1CA5DC6D002949CE /* DetailViewController.swift */,
+				A8796D4F22467FCC005B251C /* AlertController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				A81EA7661CA60188002949CE /* TableViewCell.swift in Sources */,
 				A8796D4C22433022005B251C /* IntExtension.swift in Sources */,
 				A8796D42223F4977005B251C /* Divvy.swift in Sources */,
+				A8796D5022467FCD005B251C /* AlertController.swift in Sources */,
 				A81EA75E1CA5DC6D002949CE /* DetailViewController.swift in Sources */,
 				A8796D44223F5794005B251C /* Response.swift in Sources */,
 			);

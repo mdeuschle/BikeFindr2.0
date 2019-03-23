@@ -9,31 +9,29 @@
 import UIKit
 import CoreLocation
 
-class ListViewController: UIViewController, UITableViewDelegate, UISearchBarDelegate {
+class ListViewController: UIViewController, UISearchBarDelegate {
 
     @IBOutlet var tableView: UITableView!
     let locationManager = CLLocationManager()
-//    @IBOutlet var searchBar: UISearchBar!
-
+    private var currentLocation = CLLocation()
+    var inSearchMode = false
     private var bikes = [Divvy]() {
         didSet {
             tableView.reloadData()
         }
     }
-    private var filteredBikes = [Divvy]()
-    private var currentLocation = CLLocation()
+    private var filteredBikes = [Divvy]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
 
-    var inSearchMode = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//
-//        requestLocation()
         downloadBikeStations()
         setupTableView()
         setupLocation()
 //        searchBar.delegate = self
-//        searchBar.returnKeyType = UIReturnKeyType.done
     }
     
     private func setupTableView() {
@@ -46,6 +44,10 @@ class ListViewController: UIViewController, UITableViewDelegate, UISearchBarDele
             locationManager.delegate = self
             locationManager.startUpdatingLocation()
         }
+    }
+    
+    private func getBike(at row: Int, inSearchMode: Bool) -> Divvy {
+        return inSearchMode ? filteredBikes[row] : bikes[row]
     }
     
     private func downloadBikeStations() {
@@ -62,113 +64,45 @@ class ListViewController: UIViewController, UITableViewDelegate, UISearchBarDele
                         }
                     }
                 case let .error(error):
-                    print(error!)
+                    guard let viewController = self else { return }
+                    AlertController(viewController: viewController).showAlert(with: error)
                 }
                 self?.bikes.sort(by: { $0.distance < $1.distance })
             }
         }
     }
 
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        tableView.reloadData()
-//        view.endEditing(true)
-//    }
-
-
-//
-//    func configureData(data: [String:AnyObject]) {
-//        let results = data["stationBeanList"] as! [[String:AnyObject]]
-//        for bikestation in results {
-//            let newBikeStation = Divvy()
-//            newBikeStation.initWithData(data: bikestation, currentLocation: self.currentLocation)
-//            bikes.append(newBikeStation)
-//            self.tableView.reloadData()
-//        }
-//        bikes.sort(by: { $0.distance < $1.distance })
-//    }
-
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TableViewCell else {
-            return TableViewCell()
-        }
-        var bike = bikes[indexPath.row]
-        cell.configure(with: &bike)
-        
-        
-//        let bike: Divvy!
-//
-//        if inSearchMode {
-//
-//            bike = filteredBikes[indexPath.row]
-//
-//        } else {
-//
-//            bike = bikes[indexPath.row]
-//        }
-//
-//        cell.bikeStationName.text = bike.stationName.uppercased()
-//        cell.bikeAvailable.text = "\(String(bike.availableBikes)) bikes available"
-//
-//        let distance = self.currentLocation.distance(from: CLLocation(latitude: bike.lat, longitude: bike.lon))
-//        let miles = distance * 0.000621371
-//        let bikeMiles = Double(round(10 * miles)/10)
-//        cell.milesLabel.text = "\(bikeMiles) mi"
-
-        return cell
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let detailView = segue.destination as? DetailViewController,
+            let indexPath = tableView.indexPathForSelectedRow else { return }
+        let bike = getBike(at: indexPath.row, inSearchMode: inSearchMode)
+        detailView.divvy = bike
     }
-
-//    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//
-//        let detailView = segue.destination as! DetailViewController
-//        detailView.currentLocation = self.currentLocation
-//
-//        let bike: Divvy!
-//
-//        if inSearchMode {
-//
-//            bike = filteredBikes[(tableView.indexPathForSelectedRow!.row)]
-//            detailView.selectedBikeStation = bike
-//        } else {
-//
-//            bike = bikes[(tableView.indexPathForSelectedRow!.row)]
-//            detailView.selectedBikeStation = bike
-//        }
-//    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
-        view.endEditing(true)
-    }
-
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//
-//        if searchBar.text == nil || searchBar.text == "" {
-//
-//            inSearchMode = false
-//            view.endEditing(true)
-//            tableView.reloadData()
-//        } else {
-//
-//            inSearchMode = true
-//            let searchText = searchBar.text!
-//            filteredBikes = bikes.filter({ $0.stationName == searchText })
-//            tableView.reloadData()
-//        }
-//    }
 }
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if inSearchMode {
-            
-            return filteredBikes.count
+        return inSearchMode ? filteredBikes.count : bikes.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? TableViewCell else {
+            return TableViewCell()
         }
-        return bikes.count
+        var bike = getBike(at: indexPath.row, inSearchMode: inSearchMode)
+        cell.configure(with: &bike)
+        return cell
     }
 }
+
+extension ListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
+        tableView.deselectRow(at: indexPath,
+                              animated: true)
+    }
+}
+
 
 extension ListViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
