@@ -60,7 +60,7 @@ class MapViewController: UIViewController {
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    func dropPins() {
+    private func dropPins() {
         bikes.forEach { bike in
             let newPin = BikePointAnnotation()
             newPin.coordinate = bike.coordinate2D

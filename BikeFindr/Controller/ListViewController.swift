@@ -32,12 +32,14 @@ class ListViewController: UIViewController, UISearchBarDelegate {
         configureSearchBar()
         setupTableView()
         setupLocation()
+        definesPresentationContext = true
     }
     
     private func configureSearchBar() {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
     }
     
@@ -127,7 +129,7 @@ extension ListViewController: UISearchResultsUpdating, UISearchControllerDelegat
         if let text = searchController.searchBar.text, !text.isEmpty {
             inSearchMode = true
             filteredBikes = bikes.filter {
-                $0.stationBeanList.stationName!.lowercased().contains(text.lowercased())
+                $0.stationBeanList.stationName!.lowercased().contains(text.lowercased().trimmingCharacters(in: .whitespaces))
             }
         } else {
             inSearchMode = false

@@ -10,7 +10,7 @@ import Foundation
 
 extension Int {
     func bikeString() -> String {
-        let available = self >= 1 ? " Bikes" : " Bike"
+        let available = self >= 2 ? " Bikes" : " Bike"
         return String(self) + available + " Available"
     }
 }

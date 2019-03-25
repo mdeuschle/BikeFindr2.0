@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import StoreKit
 
 class DetailViewController: UIViewController {
 
@@ -24,6 +25,9 @@ class DetailViewController: UIViewController {
         self.title = divvy?.stationBeanList.stationName
         station = divvy?.stationBeanList
         configureLabels()
+        if #available( iOS 10.3,*){
+            SKStoreReviewController.requestReview()
+        }
     }
     
     private func configureLabels() {
